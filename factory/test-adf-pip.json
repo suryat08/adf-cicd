@@ -1,0 +1,9 @@
+{
+	"name": "test-adf-pip",
+	"location": "northcentralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c7a971f4-12ad-4172-954e-62f069da5b9f",
+		"tenantId": "61c2b580-8619-4baf-8040-bac4442e29a6"
+	}
+}
