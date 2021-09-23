@@ -3,23 +3,32 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Notebook1",
-				"type": "DatabricksNotebook",
+				"name": "PreProcessing",
+				"type": "ExecutePipeline",
 				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/surya.tripathi@mavenwave.com/tes1"
-				},
-				"linkedServiceName": {
-					"referenceName": "AzureDatabricks1",
-					"type": "LinkedServiceReference"
+					"pipeline": {
+						"referenceName": "pipeline2",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Test",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "PreProcessing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"waitOnCompletion": true
 				}
 			}
 		],
