@@ -6,10 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "test-adf-pip"
-		},
-		"AzureDatabricks1_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		}
 	},
 	"variables": {
@@ -32,8 +28,7 @@
 								"referenceName": "preprocessing",
 								"type": "PipelineReference"
 							},
-							"waitOnCompletion": true,
-							"parameters": {}
+							"waitOnCompletion": true
 						}
 					},
 					{
@@ -53,15 +48,10 @@
 								"referenceName": "post",
 								"type": "PipelineReference"
 							},
-							"waitOnCompletion": true,
-							"parameters": {}
+							"waitOnCompletion": true
 						}
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -96,18 +86,12 @@
 						}
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
 				"folder": {
 					"name": "AMCLUE/Parts"
 				},
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/preprocessing')]",
@@ -163,37 +147,10 @@
 						}
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
 				"folder": {
 					"name": "AMCLUE/Parts"
 				},
 				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureDatabricks1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureDatabricks",
-				"typeProperties": {
-					"domain": "https://adb-69076470259078.18.azuredatabricks.net",
-					"accessToken": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDatabricks1_accessToken')]"
-					},
-					"newClusterNodeType": "Standard_DS4_v2",
-					"newClusterNumOfWorker": "1",
-					"newClusterVersion": "7.3.x-scala2.12",
-					"newClusterInitScripts": []
-				}
 			},
 			"dependsOn": []
 		}
